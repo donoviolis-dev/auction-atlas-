@@ -1,0 +1,50 @@
+# Auction Atlas Robots.txt
+# Production Configuration
+# https://auctionatlas.co.za
+# Last Updated: 2026-03-16
+
+User-agent: *
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /login/
+Disallow: /register/
+Disallow: /private/
+Disallow: /cron/
+Disallow: /api/internal/
+Disallow: /includes/scraper/
+Disallow: /lowercase.php
+Disallow: /*.php$
+Disallow: /*.json$
+
+# Allow important PHP pages
+Allow: /index.php
+Allow: /directory.php
+Allow: /compare.php
+Allow: /match.php
+Allow: /risk-scanner.php
+Allow: /fee-calculator.php
+Allow: /strategy-simulator.php
+Allow: /category.php
+Allow: /education.php
+Allow: /blog.php
+Allow: /blog-post.php
+Allow: /prep-check.php
+Allow: /scam-awareness.php
+Allow: /profile.php
+Allow: /404.php
+Allow: /500.php
+Allow: /sitemap.php
+
+# Block sensitive file types
+Disallow: /*.env
+Disallow: /*.config
+Disallow: /*.log
+
+# Sitemap location
+Sitemap: https://auctionatlas.co.za/sitemap.php
+Sitemap: https://auctionatlas.co.za/sitemap-index.xml
+
+# Crawl-delay (optional, for polite crawling)
+Crawl-delay: 1

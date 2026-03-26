@@ -1,0 +1,145 @@
+# =====================================================
+# AUCTION ATLAS - PRODUCTION .HTACCESS
+# Main Domain: https://auctionatlas.co.za
+# =====================================================
+
+# -----------------------------------------------------
+# 1. FORCE HTTPS
+# -----------------------------------------------------
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# -----------------------------------------------------
+# 2. DOMAIN CANONICALIZATION (Non-WWW)
+# -----------------------------------------------------
+# Redirect any www or wrong domain to main domain
+RewriteCond %{HTTP_HOST} ^www\.auctionatlas\.co\.za$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^auctionatlas\.co\.za\.funeralconnect\.co\.za$ [NC,OR]
+RewriteCond %{HTTP_HOST} !^auctionatlas\.co\.za$ [NC]
+RewriteRule ^(.*)$ https://auctionatlas.co.za/$1 [L,R=301]
+
+# -----------------------------------------------------
+# 3. TRAILING SLASH REMOVAL
+# -----------------------------------------------------
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteRule ^ %1 [L,R=301]
+
+# -----------------------------------------------------
+# 4. LOWERCASE URL NORMALIZATION
+# -----------------------------------------------------
+# Redirect uppercase URLs to lowercase
+RewriteCond %{REQUEST_URI} [A-Z]
+RewriteCond %{REQUEST_URI} !^/api/ [NC]
+RewriteRule ^(.*)$ lowercase.php?url=$1 [L,QSA]
+
+# -----------------------------------------------------
+# 5. GZIP COMPRESSION
+# -----------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml
+</IfModule>
+
+# -----------------------------------------------------
+# 6. BROWSER CACHING
+# -----------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType text/html "access plus 0 seconds"
+    ExpiresByType application/xml "access plus 0 seconds"
+</IfModule>
+
+# -----------------------------------------------------
+# 7. SECURITY HEADERS
+# -----------------------------------------------------
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header always set X-Frame-Options "SAMEORIGIN"
+    
+    # XSS Protection
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # Prevent MIME sniffing
+    Header always set X-Content-Type-Options "nosniff"
+    
+    # Referrer Policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Content Security Policy
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:;"
+    
+    # HSTS (Uncomment after testing)
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# -----------------------------------------------------
+# 8. BLOCK SENSITIVE FILES
+# -----------------------------------------------------
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "\.(env|config|ini|log|md|sqlite|db|yml|yaml)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# -----------------------------------------------------
+# 9. PHP ERROR DISPLAY (Disable in production)
+# -----------------------------------------------------
+php_flag display_errors Off
+php_flag log_errors On
+php_value error_log /home/auctionatlas/public_html/error.log
+
+# -----------------------------------------------------
+# 10. CUSTOM ERROR PAGES
+# -----------------------------------------------------
+ErrorDocument 404 /404.php
+ErrorDocument 500 /500.php
+
+# -----------------------------------------------------
+# 11. FILE-SERVER CONFIGURATION
+# -----------------------------------------------------
+# Disable directory listing
+Options -Indexes
+
+# -----------------------------------------------------
+# 12. PHP VERSION (Adjust as needed)
+# -----------------------------------------------------
+# AddHandler application/x-httpd-php82 .php
+
+# -----------------------------------------------------
+# 13. URL REWRITE RULES FOR CLEAN URLs
+# -----------------------------------------------------
+# Auction profile: /profile.php?id=1 -> /auction/auction-name
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^auction/([^/]+)/?$ profile.php?id=$1 [L,QSA]
+
+# Category page: /category.php?type=property -> /category/property
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^category/([^/]+)/?$ category.php?type=$1 [L,QSA]
+
+# Blog post: /blog-post.php?slug=example -> /blog/example
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^blog/([^/]+)/?$ blog-post.php?slug=$1 [L,QSA]
+
+# =====================================================
+# END OF .HTACCESS
+# =====================================================
+
+# Redirect index.html to root
+RewriteRule ^index\.html$ / [R=301,L]

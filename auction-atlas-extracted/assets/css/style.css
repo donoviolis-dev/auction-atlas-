@@ -1,0 +1,287 @@
+/**
+ * Auction Atlas - Custom Styles
+ * 
+ * Supplements Tailwind CSS with custom animations,
+ * glass-card effects, and component-specific styles.
+ */
+
+/* ===== Base Styles ===== */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ===== Glass Card Effect ===== */
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.glass-card-static {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== Dark Glass Card ===== */
+.glass-card-dark {
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== Hero Gradient ===== */
+.hero-gradient {
+    background: linear-gradient(135deg, #1F4E79 0%, #0f2b47 40%, #1a3a5c 60%, #2A9D8F 100%);
+}
+
+/* ===== Animated Stats Counter ===== */
+.stat-counter {
+    animation: countUp 1.5s ease-out forwards;
+}
+
+@keyframes countUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Score Ring ===== */
+.score-ring {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.score-ring svg {
+    transform: rotate(-90deg);
+}
+
+.score-ring .score-value {
+    position: absolute;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+/* ===== Risk Bar Animation ===== */
+.risk-bar-fill {
+    transition: width 1s ease-out;
+}
+
+/* ===== Grade Badge ===== */
+.grade-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.75rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 1.125rem;
+    border: 2px solid;
+}
+
+.grade-badge-lg {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.5rem;
+    border-radius: 1rem;
+}
+
+/* ===== Tag Pill ===== */
+.tag-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    background: rgba(42, 157, 143, 0.1);
+    color: #2A9D8F;
+    border: 1px solid rgba(42, 157, 143, 0.2);
+}
+
+/* ===== Pulse Animation ===== */
+.pulse-dot {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* ===== Fade In Animation ===== */
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Stagger Animation ===== */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+/* ===== Table Responsive Container ===== */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 1rem;
+}
+
+.table-responsive table {
+    min-width: 600px;
+}
+
+/* ===== Leaflet Map Overrides ===== */
+.leaflet-container {
+    border-radius: 1rem;
+    z-index: 1;
+}
+
+/* ===== Chart Container ===== */
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+}
+
+.chart-container canvas {
+    max-width: 100%;
+    height: auto !important;
+}
+
+/* ===== Range Slider Custom ===== */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #e2e8f0;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #1F4E79;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #1F4E79;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* ===== Mobile Optimizations ===== */
+@media (max-width: 640px) {
+    .glass-card:hover {
+        transform: none;
+    }
+    
+    .chart-container canvas {
+        min-height: 200px;
+    }
+}
+
+/* ===== Print Styles ===== */
+@media print {
+    header, footer, .no-print {
+        display: none !important;
+    }
+    
+    .glass-card {
+        box-shadow: none;
+        border: 1px solid #e2e8f0;
+    }
+}
+
+/* ===== Selection Color ===== */
+::selection {
+    background: rgba(31, 78, 121, 0.2);
+    color: #1F4E79;
+}
+
+/* ===== Dropdown Transitions ===== */
+.dropdown-panel {
+    z-index: 50;
+}
+
+.dropdown-trigger i[data-lucide="chevron-down"] {
+    transition: transform 0.2s ease;
+}
+
+.group:hover .dropdown-trigger i[data-lucide="chevron-down"] {
+    transform: rotate(180deg);
+}
+
+/* Mobile accordion transitions */
+.accordion-arrow {
+    transition: transform 0.2s ease;
+}

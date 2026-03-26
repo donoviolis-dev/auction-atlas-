@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Homepage -->
+    <url>
+        <loc>https://auction-atlas.co.za/</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- Calendar Page (New) -->
+    <url>
+        <loc>https://auction-atlas.co.za/index.html</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- Directory -->
+    <url>
+        <loc>https://auction-atlas.co.za/directory.php</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Compare -->
+    <url>
+        <loc>https://auction-atlas.co.za/compare.php</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Match -->
+    <url>
+        <loc>https://auction-atlas.co.za/match.php</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Fee Calculator -->
+    <url>
+        <loc>https://auction-atlas.co.za/fee-calculator.php</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Risk Scanner -->
+    <url>
+        <loc>https://auction-atlas.co.za/risk-scanner.php</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Strategy Simulator -->
+    <url>
+        <loc>https://auction-atlas.co.za/strategy-simulator.php</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Education -->
+    <url>
+        <loc>https://auction-atlas.co.za/education.php</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Prep Check -->
+    <url>
+        <loc>https://auction-atlas.co.za/prep-check.php</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- Scam Awareness -->
+    <url>
+        <loc>https://auction-atlas.co.za/scam-awareness.php</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Blog -->
+    <url>
+        <loc>https://auction-atlas.co.za/blog.php</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Category -->
+    <url>
+        <loc>https://auction-atlas.co.za/category.php</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+</urlset>

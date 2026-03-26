@@ -1,0 +1,14 @@
+# Auction Atlas - Robots.txt
+# https://auction-atlas.co.za
+
+User-agent: *
+Allow: /
+
+# Disallow admin and debug routes
+Disallow: /admin/
+Disallow: /debug/
+Disallow: /cron/
+Disallow: /includes/scraper/
+
+# Sitemap
+Sitemap: https://auction-atlas.co.za/sitemap.xml

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auction Calendar | Auction Atlas</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FullCalendar -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+    
+    <!-- PapaParse -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M3 3h18v18H3zM9 9h6v6H9z"/>
+                        <path d="M9 3v6M15 3v6M9 15v6M15 15v6M3 9h6M15 9h6M3 15h6M15 15h6"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1>Auction Atlas</h1>
+                    <p class="tagline">South African Auction Calendar</p>
+                </div>
+            </div>
+            
+            <div class="header-stats">
+                <div class="stat-pill">
+                    <span class="stat-number" id="totalAuctions">0</span>
+                    <span class="stat-label">Auctions</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-number" id="totalSources">0</span>
+                    <span class="stat-label">Sources</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Auction Banner -->
+        <div class="top-auction-banner" id="topAuctionBanner">
+            <div class="banner-content">
+                <div class="banner-badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                    Top Auction This Week
+                </div>
+                <div class="banner-details">
+                    <h2 class="banner-title" id="topAuctionTitle">Loading...</h2>
+                    <div class="banner-meta">
+                        <span class="banner-location" id="topAuctionLocation">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                        </span>
+                        <span class="banner-date" id="topAuctionDate">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <a href="#" class="banner-btn" id="topAuctionLink" target="_blank">
+                    View Auction
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                        <polyline points="15 3 21 3 21 9"/>
+                        <line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Insights Row -->
+        <div class="insights-row">
+            <!-- Heatmap Legend -->
+            <div class="insight-card heatmap-legend">
+                <h3 class="insight-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20M2 12h20"/>
+                        <circle cx="12" cy="12" r="4"/>
+                    </svg>
+                    Auction Activity
+                </h3>
+                <div class="heatmap-scale">
+                    <span class="scale-label">Less</span>
+                    <div class="scale-bar">
+                        <span class="scale-segment" style="background: rgba(245, 158, 11, 0.1)"></span>
+                        <span class="scale-segment" style="background: rgba(245, 158, 11, 0.3)"></span>
+                        <span class="scale-segment" style="background: rgba(245, 158, 11, 0.5)"></span>
+                        <span class="scale-segment" style="background: rgba(245, 158, 11, 0.7)"></span>
+                        <span class="scale-segment" style="background: rgba(245, 158, 11, 0.9)"></span>
+                    </div>
+                    <span class="scale-label">More</span>
+                </div>
+            </div>
+            
+            <!-- Trending Chart -->
+            <div class="insight-card trending-chart">
+                <h3 class="insight-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"/>
+                        <line x1="12" y1="20" x2="12" y2="4"/>
+                        <line x1="6" y1="20" x2="6" y2="14"/>
+                    </svg>
+                    Trending Sources
+                </h3>
+                <div class="chart-container">
+                    <canvas id="trendingChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="search-wrapper">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Search auctions..." class="search-input">
+            </div>
+            
+            <select class="filter-select" id="sourceFilter">
+                <option value="">All Sources</option>
+                <option value="High Street Auction">High Street</option>
+                <option value="Gobid">GoBid</option>
+                <option value="Claremart Auctions">Claremart</option>
+                <option value="Bidders Choice">Bidders Choice</option>
+                <option value="Aucor">Aucor</option>
+                <option value="SA Auction Group">SA Auction Group</option>
+                <option value="Nuco">Nuco</option>
+            </select>
+            
+            <select class="filter-select" id="locationFilter">
+                <option value="">All Locations</option>
+                <option value="National">National</option>
+                <option value="Johannesburg">Johannesburg</option>
+                <option value="Cape Town">Cape Town</option>
+                <option value="Durban">Durban</option>
+                <option value="Pretoria">Pretoria</option>
+                <option value="Western Cape">Western Cape</option>
+            </select>
+            
+            <button class="btn-ghost" id="clearFilters">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+                Clear
+            </button>
+        </div>
+        
+        <!-- Calendar Controls -->
+        <div class="calendar-controls">
+            <div class="view-switcher">
+                <button class="view-btn active" data-view="dayGridMonth">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    Month
+                </button>
+                <button class="view-btn" data-view="timeGridWeek">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                        <line x1="3" y1="14" x2="21" y2="14"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                    Week
+                </button>
+                <button class="view-btn" data-view="timeGridDay">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    Day
+                </button>
+                <button class="view-btn" data-view="listMonth">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="8" y1="6" x2="21" y2="6"/>
+                        <line x1="8" y1="12" x2="21" y2="12"/>
+                        <line x1="8" y1="18" x2="21" y2="18"/>
+                        <line x1="3" y1="6" x2="3.01" y2="6"/>
+                        <line x1="3" y1="12" x2="3.01" y2="12"/>
+                        <line x1="3" y1="18" x2="3.01" y2="18"/>
+                    </svg>
+                    List
+                </button>
+            </div>
+            
+            <div class="nav-group">
+                <button class="nav-btn" id="todayBtn">Today</button>
+                <div class="nav-arrows">
+                    <button class="nav-btn icon-only" id="prevBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"/>
+                        </svg>
+                    </button>
+                    <button class="nav-btn icon-only" id="nextBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </button>
+                </div>
+                <h2 class="calendar-title" id="calendarTitle"></h2>
+            </div>
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend">
+            <span class="legend-label">Sources:</span>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <span class="legend-dot" style="background: var(--source-highstreet)"></span>
+                    <span>High Street</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background: var(--source-gobid)"></span>
+                    <span>GoBid</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background: var(--source-claremart)"></span>
+                    <span>Claremart</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background: var(--source-bidders)"></span>
+                    <span>Bidders Choice</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background: var(--source-aucor)"></span>
+                    <span>Aucor</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Calendar Container -->
+        <div class="calendar-wrapper">
+            <div id="calendar"></div>
+        </div>
+    </main>
+    
+    <!-- Event Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+            
+            <div class="modal-header">
+                <span class="source-badge" id="modalSource">Source</span>
+                <h2 class="modal-title" id="modalTitle">Auction Title</h2>
+            </div>
+            
+            <div class="modal-body">
+                <div class="modal-details">
+                    <div class="detail-row">
+                        <div class="detail-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                        </div>
+                        <div class="detail-content">
+                            <span class="detail-label">Date & Time</span>
+                            <span class="detail-value" id="modalDate">Date</span>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <div class="detail-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                        </div>
+                        <div class="detail-content">
+                            <span class="detail-label">Location</span>
+                            <span class="detail-value" id="modalLocation">Location</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <a href="#" class="btn-primary" id="modalLink" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                        <polyline points="15 3 21 3 21 9"/>
+                        <line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
+                    View Auction
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading State -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>Loading auctions...</p>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

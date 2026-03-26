@@ -1,0 +1,14 @@
+{
+    "name": "auction-atlas/platform",
+    "description": "South African Auction Directory Platform",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "AuctionAtlas\\": "includes/"
+        }
+    }
+}

@@ -1,0 +1,718 @@
+/* 
+ * Auction Atlas - Mobile-First App-Like Experience
+ * 
+ * This CSS provides an app-like experience on mobile devices
+ * while preserving the desktop layout unchanged.
+ * 
+ * Mobile Breakpoint: 768px and below
+ */
+
+/* =====================================================
+   MOBILE DETECTION & BASE STYLES
+   ===================================================== */
+
+/* Hide mobile styles on desktop by default */
+.mobile-only {
+    display: none !important;
+}
+
+.desktop-only {
+    display: block !important;
+}
+
+/* =====================================================
+   MOBILE LAYOUT - Screen width <= 768px
+   ===================================================== */
+@media screen and (max-width: 768px) {
+    
+    /* Base mobile reset */
+    :root {
+        --mobile-padding: 16px;
+        --bottom-nav-height: 64px;
+        --top-bar-height: 56px;
+        --card-radius: 16px;
+        --btn-height: 48px;
+    }
+    
+    body {
+        padding-bottom: var(--bottom-nav-height) !important;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+    }
+    
+    /* Show mobile elements */
+    .mobile-only {
+        display: flex !important;
+    }
+    
+    .desktop-only {
+        display: none !important;
+    }
+    
+    /* =====================================================
+       TOP BAR - Fixed Header
+       ===================================================== */
+    .mobile-top-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: var(--top-bar-height);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 var(--mobile-padding);
+    }
+    
+    .mobile-top-bar .logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .mobile-top-bar .logo img {
+        height: 32px;
+        width: auto;
+    }
+    
+    .mobile-top-bar .logo-text {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1F4E79;
+    }
+    
+    .mobile-top-bar .icon-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f1f5f9;
+        border: none;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .mobile-top-bar .icon-btn:active {
+        transform: scale(0.95);
+        background: #e2e8f0;
+    }
+    
+    /* =====================================================
+       BOTTOM NAVIGATION - App-like tab bar
+       ===================================================== */
+    .mobile-bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: var(--bottom-nav-height);
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0 4px;
+        padding-bottom: env(safe-area-inset-bottom, 8px);
+    }
+    
+    .mobile-bottom-nav-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 8px 4px;
+        text-decoration: none;
+        color: #64748b;
+        font-size: 11px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+        position: relative;
+    }
+    
+    .mobile-bottom-nav-item:active {
+        transform: scale(0.95);
+    }
+    
+    .mobile-bottom-nav-item.active {
+        color: #1F4E79;
+    }
+    
+    .mobile-bottom-nav-item.active::before {
+        content: '';
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 3px;
+        background: #1F4E79;
+        border-radius: 0 0 4px 4px;
+    }
+    
+    .mobile-bottom-nav-item svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    /* =====================================================
+       CONTENT ADJUSTMENTS
+       ===================================================== */
+    .mobile-content {
+        padding-top: calc(var(--top-bar-height) + 16px);
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        padding-bottom: calc(var(--bottom-nav-height) + 16px);
+    }
+    
+    /* Full-width containers */
+    .container, 
+    .max-w-7xl, 
+    .max-w-6xl, 
+    .max-w-5xl,
+    .max-w-4xl,
+    .max-w-3xl {
+        max-width: 100% !important;
+        padding-left: var(--mobile-padding) !important;
+        padding-right: var(--mobile-padding) !important;
+    }
+    
+    /* Remove desktop header spacing */
+    header.sticky {
+        position: fixed !important;
+        top: 0;
+        width: 100%;
+        z-index: 999;
+    }
+    
+    header + * {
+        margin-top: var(--top-bar-height) !important;
+    }
+    
+    /* =====================================================
+       MOBILE CARDS
+       ===================================================== */
+    .mobile-card {
+        background: white;
+        border-radius: var(--card-radius);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        margin-bottom: 12px;
+        overflow: hidden;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .mobile-card:active {
+        transform: scale(0.99);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    
+    .mobile-card-padding {
+        padding: 16px;
+    }
+    
+    /* Auction card */
+    .auction-card-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .auction-card-mobile .auction-image {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 12px;
+        background: #f1f5f9;
+    }
+    
+    .auction-card-mobile .auction-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1e293b;
+        line-height: 1.3;
+    }
+    
+    .auction-card-mobile .auction-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 13px;
+        color: #64748b;
+    }
+    
+    .auction-card-mobile .auction-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        background: #f1f5f9;
+        border-radius: 20px;
+        font-size: 12px;
+        color: #475569;
+    }
+    
+    .auction-card-mobile .auction-date {
+        font-weight: 600;
+        color: #1F4E79;
+    }
+    
+    /* =====================================================
+       MOBILE BUTTONS
+       ===================================================== */
+    .mobile-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        height: var(--btn-height);
+        padding: 0 24px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: all 0.2s ease;
+    }
+    
+    .mobile-btn:active {
+        transform: scale(0.98);
+    }
+    
+    .mobile-btn-primary {
+        background: linear-gradient(135deg, #1F4E79, #2A9D8F);
+        color: white;
+    }
+    
+    .mobile-btn-secondary {
+        background: #f1f5f9;
+        color: #1e293b;
+    }
+    
+    .mobile-btn-full {
+        width: 100%;
+    }
+    
+    /* =====================================================
+       MOBILE SEARCH
+       ===================================================== */
+    .mobile-search {
+        position: relative;
+        margin-bottom: 16px;
+    }
+    
+    .mobile-search input {
+        width: 100%;
+        height: 48px;
+        padding: 0 16px 0 48px;
+        border: none;
+        border-radius: 24px;
+        background: #f1f5f9;
+        font-size: 16px;
+        -webkit-appearance: none;
+    }
+    
+    .mobile-search input:focus {
+        outline: none;
+        background: #e2e8f0;
+    }
+    
+    .mobile-search .search-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+    }
+    
+    /* =====================================================
+       CATEGORY CHIPS - Horizontal scroll
+       ===================================================== */
+    .mobile-chips {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 4px 0;
+        margin-bottom: 16px;
+    }
+    
+    .mobile-chips::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .mobile-chip {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 16px;
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #475569;
+        white-space: nowrap;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .mobile-chip:active {
+        background: #f1f5f9;
+    }
+    
+    .mobile-chip.active {
+        background: #1F4E79;
+        color: white;
+        border-color: #1F4E79;
+    }
+    
+    /* =====================================================
+       SKELETON LOADERS
+       ===================================================== */
+    .skeleton {
+        background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+        background-size: 200% 100%;
+        animation: skeleton-loading 1.5s infinite;
+        border-radius: 8px;
+    }
+    
+    @keyframes skeleton-loading {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+    
+    .skeleton-text {
+        height: 16px;
+        margin-bottom: 8px;
+    }
+    
+    .skeleton-title {
+        height: 24px;
+        width: 70%;
+        margin-bottom: 12px;
+    }
+    
+    .skeleton-image {
+        height: 140px;
+        border-radius: 12px;
+    }
+    
+    /* =====================================================
+       PULL TO REFRESH
+       ===================================================== */
+    .ptr-container {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .ptr-indicator {
+        position: absolute;
+        top: -50px;
+        left: 0;
+        right: 0;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: top 0.3s ease;
+    }
+    
+    .ptr-container.refreshing .ptr-indicator {
+        top: 0;
+    }
+    
+    .ptr-spinner {
+        width: 24px;
+        height: 24px;
+        border: 3px solid #e2e8f0;
+        border-top-color: #1F4E79;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+    
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    
+    /* =====================================================
+       BOTTOM SHEET - Modal
+       ===================================================== */
+    .bottom-sheet {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        border-radius: 24px 24px 0 0;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+        z-index: 2000;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    .bottom-sheet.open {
+        transform: translateY(0);
+    }
+    
+    .bottom-sheet-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .bottom-sheet-overlay.open {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .bottom-sheet-handle {
+        width: 40px;
+        height: 4px;
+        background: #cbd5e1;
+        border-radius: 2px;
+        margin: 12px auto;
+    }
+    
+    .bottom-sheet-content {
+        padding: 0 20px 20px;
+    }
+    
+    /* =====================================================
+       TOAST NOTIFICATIONS
+       ===================================================== */
+    .mobile-toast {
+        position: fixed;
+        bottom: calc(var(--bottom-nav-height) + 16px);
+        left: 16px;
+        right: 16px;
+        padding: 14px 20px;
+        background: #1e293b;
+        color: white;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 3000;
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-toast.show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    /* =====================================================
+       HORIZONTAL SCROLL LISTS
+       ===================================================== */
+    .horizontal-scroll {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 4px 0;
+        margin: 0 calc(-1 * var(--mobile-padding));
+        padding-left: var(--mobile-padding);
+        padding-right: var(--mobile-padding);
+    }
+    
+    .horizontal-scroll::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .horizontal-scroll-item {
+        flex-shrink: 0;
+        width: 280px;
+    }
+    
+    /* =====================================================
+       FEATURED AUCTION HERO
+       ===================================================== */
+    .mobile-hero {
+        margin: calc(-1 * var(--mobile-padding));
+        margin-bottom: 16px;
+        padding: 24px var(--mobile-padding);
+        background: linear-gradient(135deg, #1F4E79, #2A9D8F);
+        color: white;
+    }
+    
+    .mobile-hero h1 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+    
+    .mobile-hero p {
+        font-size: 14px;
+        opacity: 0.9;
+    }
+    
+    /* =====================================================
+       SMOOTH TRANSITIONS
+       ===================================================== */
+    .page-transition {
+        animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* =====================================================
+       CALENDAR MOBILE
+       ===================================================== */
+    .mobile-calendar {
+        margin: calc(-1 * var(--mobile-padding));
+        padding: 16px;
+        background: white;
+    }
+    
+    .mobile-calendar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+    }
+    
+    .mobile-calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+    }
+    
+    .mobile-calendar-day {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 500;
+        border-radius: 12px;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .mobile-calendar-day:active {
+        background: #f1f5f9;
+    }
+    
+    .mobile-calendar-day.today {
+        background: #1F4E79;
+        color: white;
+    }
+    
+    .mobile-calendar-day.has-auctions {
+        position: relative;
+    }
+    
+    .mobile-calendar-day.has-auctions::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        width: 4px;
+        height: 4px;
+        background: #2A9D8F;
+        border-radius: 50%;
+    }
+    
+    /* =====================================================
+       EMPTY STATES
+       ===================================================== */
+    .mobile-empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 24px;
+        text-align: center;
+    }
+    
+    .mobile-empty svg {
+        width: 80px;
+        height: 80px;
+        color: #cbd5e1;
+        margin-bottom: 16px;
+    }
+    
+    .mobile-empty h3 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #475569;
+        margin-bottom: 8px;
+    }
+    
+    .mobile-empty p {
+        font-size: 14px;
+        color: #94a3b8;
+    }
+    
+    /* =====================================================
+       TYPOGRAPHY
+       ===================================================== */
+    h1 { font-size: 28px !important; }
+    h2 { font-size: 22px !important; }
+    h3 { font-size: 18px !important; }
+    p, body { font-size: 15px !important; line-height: 1.5 !important; }
+    
+    /* =====================================================
+       UTILITY CLASSES
+       ===================================================== */
+    .mobile-hidden { display: none !important; }
+    .mobile-block { display: block !important; }
+    .mobile-flex { display: flex !important; }
+    .mobile-full-width { width: 100% !important; }
+    .mobile-center { text-align: center !important; }
+    .mobile-mt-0 { margin-top: 0 !important; }
+    .mobile-mb-0 { margin-bottom: 0 !important; }
+    .mobile-p-0 { padding: 0 !important; }
+    
+}
+
+/* =====================================================
+   SAFE AREA PADDING FOR NOTCH DEVICES
+   ===================================================== */
+@supports (padding: max(0px)) {
+    @media screen and (max-width: 768px) {
+        .mobile-bottom-nav {
+            padding-bottom: max(8px, env(safe-area-inset-bottom));
+        }
+        
+        body {
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+        }
+    }
+}
+
+/* =====================================================
+   LANDSCAPE MOBILE
+   ===================================================== */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    :root {
+        --bottom-nav-height: 52px;
+        --top-bar-height: 48px;
+    }
+}
